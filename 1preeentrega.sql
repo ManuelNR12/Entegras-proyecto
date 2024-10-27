@@ -44,7 +44,7 @@ CREATE TABLE Compra (
     FOREIGN KEY (ID_Proveedor) REFERENCES Proveedor(ID_Proveedor)
 );
 
--- Tabla Detalle_Pedido
+
 CREATE TABLE Detalle_Pedido (
     ID_Detalle INT PRIMARY KEY AUTO_INCREMENT,
     ID_Pedido INT,
