@@ -8,13 +8,12 @@ DETERMINISTIC
 BEGIN
     DECLARE stock INT;
     DECLARE estado VARCHAR(20);
-
-    -- Obtener el stock del producto
+--stock q hay
     SELECT Stock INTO stock
     FROM Producto
     WHERE ID_Producto = p_ID_Producto;
 
-    -- Determinar el estado del stock
+ -- estado del stock
     IF stock <= 20 THEN
         SET estado = 'Crítico';
     ELSEIF stock BETWEEN 21 AND 50 THEN
@@ -43,13 +42,13 @@ BEGIN
     DECLARE totalPedidos INT;
     DECLARE promedio DECIMAL(10, 2);
 
-    -- Calcular el total de productos vendidos en el rango de fechas
+    
     SELECT SUM(Cantidad) INTO totalProductos
     FROM Detalle_Pedido dp
     JOIN Pedido p ON dp.ID_Pedido = p.ID_Pedido
     WHERE p.Fecha BETWEEN p_FechaInicio AND p_FechaFin;
 
-    -- Calcular el total de pedidos en el rango de fechas
+    -- calcula pedidos porfecha
     SELECT COUNT(DISTINCT p.ID_Pedido) INTO totalPedidos
     FROM Pedido p
     WHERE p.Fecha BETWEEN p_FechaInicio AND p_FechaFin;
@@ -80,13 +79,13 @@ DETERMINISTIC
 BEGIN
     DECLARE totalIngresos DECIMAL(10, 2);
 
-    -- Calcular los ingresos totales del cliente dentro del rango de fechas
+    -- Calcular ingresos por rango
     SELECT ROUND(SUM(p.Total), 2) INTO totalIngresos
     FROM Pedido p
     WHERE p.ID_Cliente = p_ID_Cliente
       AND p.Fecha BETWEEN p_FechaInicio AND p_FechaFin;
 
-    -- Si no hay ingresos (por ejemplo, si no hay pedidos), devolver 0
+    -- Si no hay ingresos o pedido devolver valor a 0
     IF totalIngresos IS NULL THEN
         SET totalIngresos = 0;
     END IF;
