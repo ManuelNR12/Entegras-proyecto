@@ -102,3 +102,250 @@ La base de datos de **Floristería** tiene como objetivo gestionar información 
 
 Esta estructura de base de datos es útil para optimizar las operaciones de la floristería, mejorar la eficiencia del servicio y aumentar la satisfacción del cliente a través de un seguimiento detallado de cada proceso.
 
+
+## VISTAS
+
+1. Vista de Producto con Stock Crítico
+   - **Objetivo**: Identificar y monitorear productos con niveles de inventario bajos o críticos.
+   - **Descripción**: Esta consulta genera un informe detallado del estado de inventario de los productos, clasificándolos según su nivel de stock.
+   - **Tablas involucradas**: 
+     * Tabla Producto
+   - **Características principales**:
+     * Muestra información como ID, Nombre, Tipo, Stock y Precio
+     * Clasifica el estado del stock en tres niveles:
+       - 'Crítico': 20 unidades o menos
+       - 'Bajo': Entre 21 y 50 unidades
+       - 'Normal': Más de 50 unidades
+     * Calcula un porcentaje de stock en relación con el promedio general
+     * Ordena los resultados de menor a mayor stock
+
+2. Vista de Ingresos Mensuales (VW_Ingresos_Mensuales)
+   - **Objetivo**: Proporcionar un análisis detallado de los ingresos por mes.
+   - **Descripción**: Agrupa los pedidos por mes y calcula métricas financieras clave.
+   - **Tablas involucradas**: 
+     * Tabla Pedido
+   - **Características principales**:
+     * Agrupa los pedidos por año y mes
+     * Calcula:
+       - Número total de pedidos por mes
+       - Ingresos totales
+       - Valor promedio de pedido
+       - Pedido mínimo
+       - Pedido máximo
+     * Ordena los resultados cronológicamente
+
+3. Vista de Ingresos por Logística
+   - **Objetivo**: Analizar los ingresos generados por diferentes métodos de logística.
+   - **Descripción**: Relaciona los pedidos con sus métodos de entrega para evaluar el rendimiento financiero.
+   - **Tablas involucradas**:
+     * Tabla Entrega
+     * Tabla Logística
+     * Tabla Pedido
+   - **Características principales**:
+     * Agrupa los ingresos por método de logística
+     * Suma el total de ingresos para cada método
+     * Ordena los resultados de mayor a menor ingreso
+
+Estas vistas serviran para análisis estratégico para la floristería, permitiendo:
+- Gestionar eficientemente el inventario
+- Monitorear el rendimiento financiero mensual
+- Evaluar la efectividad de los diferentes métodos de logística
+
+## funciones
+
+Función GetEstadoStockProducto(p_ID_Producto INT)
+
+Objetivo: Determinar el estado del stock de un producto específico basado en su cantidad disponible.
+Parámetros de entrada:
+
+p_ID_Producto: Identificador único del producto
+
+
+Valor de retorno:
+
+Cadena de texto (VARCHAR) que describe el estado del stock
+
+
+Tablas manipuladas:
+
+Tabla Producto
+
+
+Lógica de clasificación:
+
+Stock ≤ 20: 'Crítico'
+Stock entre 21 y 50: 'Bajo'
+Stock > 50: 'Normal'
+
+
+Uso práctico:
+
+Permite rápidamente identificar el estado de inventario de cualquier producto
+Útil para alertas de reabastecimiento y gestión de inventario
+
+
+
+
+Función GetPromedioProductosPorPedido(p_FechaInicio DATE, p_FechaFin DATE)
+
+Objetivo: Calcular el promedio de productos por pedido en un rango de fechas específico.
+Parámetros de entrada:
+
+p_FechaInicio: Fecha de inicio del período de análisis
+p_FechaFin: Fecha de finalización del período de análisis
+
+
+Valor de retorno:
+
+Número decimal que representa el promedio de productos por pedido
+
+
+Tablas manipuladas:
+
+Tabla Detalle_Pedido
+Tabla Pedido
+
+
+Proceso de cálculo:
+
+Suma total de productos en el rango de fechas
+Cuenta total de pedidos en el rango de fechas
+Calcula el promedio dividiendo total de productos por total de pedidos
+
+
+Consideraciones especiales:
+
+Devuelve 0 si no hay pedidos en el rango de fechas
+Redondea el resultado a 2 decimales
+
+
+Uso práctico:
+
+Análisis de volumen de ventas
+Evaluación de la composición típica de los pedidos
+
+
+
+
+Función GetIngresosCliente(p_ID_Cliente INT, p_FechaInicio DATE, p_FechaFin DATE)
+
+Objetivo: Calcular los ingresos totales generados por un cliente específico en un rango de fechas determinado.
+Parámetros de entrada:
+
+p_ID_Cliente: Identificador único del cliente
+p_FechaInicio: Fecha de inicio del período de análisis
+p_FechaFin: Fecha de finalización del período de análisis
+
+
+Valor de retorno:
+
+Número decimal que representa el total de ingresos del cliente
+
+
+Tablas manipuladas:
+
+Tabla Pedido
+
+
+Proceso de cálculo:
+
+Suma los totales de los pedidos del cliente en el rango de fechas especificado
+Redondea el resultado a 2 decimales
+
+
+Consideraciones especiales:
+
+Devuelve 0 si no hay ingresos o pedidos para el cliente en el rango de fechas
+
+
+Uso práctico:
+
+Análisis de valor de cliente
+Seguimiento de compras por cliente
+Identificación de clientes más importantes
+
+Beneficios generales de estas funciones:
+
+Facilitan consultas complejas mediante funciones predefinidas
+Mejoran la modularidad y mantenibilidad del código de base de datos
+Permiten análisis rápidos y flexibles de diferentes aspectos del negocio
+
+Recomendaciones de uso:
+
+Pueden ser utilizadas en consultas SELECT, WHERE y en otras funciones o procedimientos
+Útiles para informes, dashboard y análisis de negocio
+
+Aquí tienes un análisis detallado de los procedimientos almacenados creados para la base de datos de la floristería:
+
+1. Procedimiento `ActualizarStockProducto`
+   - **Objetivo**: Actualizar automáticamente el stock de un producto después de una venta.
+   - **Parámetros de entrada**:
+     * `p_ID_Producto`: Identificador único del producto
+     * `p_CantidadVendida`: Número de unidades vendidas
+   - **Tablas manipuladas**:
+     * Tabla `Producto`
+   - **Funcionalidad**:
+     * Resta la cantidad vendida del stock actual del producto
+     * Permite una gestión dinámica y automática del inventario
+   - **Beneficios**:
+     * Evita la actualización manual de stock
+     * Reduce errores de conteo
+     * Mantiene el inventario actualizado en tiempo real
+
+2. Procedimiento `ObtenerIngresosPorProducto`
+   - **Objetivo**: Generar un informe de ingresos totales por producto en un rango de fechas específico.
+   - **Parámetros de entrada**:
+     * `p_FechaInicio`: Fecha de inicio del período de análisis
+     * `p_FechaFin`: Fecha de finalización del período de análisis
+   - **Tablas involucradas**:
+     * Tabla `Detalle_Pedido`
+     * Tabla `Producto`
+     * Tabla `Pedido`
+   - **Características del informe**:
+     * Muestra el nombre del producto
+     * Calcula los ingresos totales por producto
+     * Ordena los resultados de mayor a menor ingreso
+   - **Beneficios**:
+     * Análisis rápido de rendimiento de productos
+     * Identificación de productos más rentables
+     * Apoyo en la toma de decisiones de inventario y marketing
+
+3. Procedimiento `ObtenerOrdenVentasPorRangoFechas`
+   - **Objetivo**: Proporcionar un detalle cronológico de ventas en un período específico.
+   - **Parámetros de entrada**:
+     * `p_FechaInicio`: Fecha de inicio del período de análisis
+     * `p_FechaFin`: Fecha de finalización del período de análisis
+   - **Tablas involucradas**:
+     * Tabla `Detalle_Pedido`
+     * Tabla `Producto`
+     * Tabla `Pedido`
+   - **Características del informe**:
+     * Muestra la fecha de venta
+     * Incluye detalles del producto vendido
+     * Detalla cantidad vendida y precio unitario
+     * Calcula el total de venta por línea de pedido
+     * Ordena los resultados cronológicamente
+   - **Beneficios**:
+     * Seguimiento detallado de ventas
+     * Análisis de patrones de venta
+     * Facilita la auditoría y control de ventas
+
+**Beneficios generales de estos procedimientos**:
+- Automatizan procesos de gestión de inventario y análisis de ventas
+- Proporcionan información precisa y actualizada
+- Mejoran la eficiencia operativa
+- Facilitan la toma de decisiones estratégicas
+
+**Casos de uso recomendados**:
+- Generación de informes periódicos
+- Análisis de rendimiento de productos
+- Seguimiento de inventario
+- Planificación de compras y reabastecimiento
+
+**Consideraciones importantes**:
+- Pueden ser llamados directamente desde aplicaciones o herramientas de gestión
+- Proporcionan una capa de abstracción para operaciones complejas de base de datos
+
+¿Necesitas alguna aclaración adicional sobre estos procedimientos almacenados?
+
+
