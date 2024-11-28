@@ -275,7 +275,8 @@ Recomendaciones de uso:
 Pueden ser utilizadas en consultas SELECT, WHERE y en otras funciones o procedimientos
 Útiles para informes, dashboard y análisis de negocio
 
-Aquí tienes un análisis detallado de los procedimientos almacenados creados para la base de datos de la floristería:
+
+## procedure
 
 1. Procedimiento `ActualizarStockProducto`
    - **Objetivo**: Actualizar automáticamente el stock de un producto después de una venta.
@@ -346,6 +347,5 @@ Aquí tienes un análisis detallado de los procedimientos almacenados creados pa
 - Pueden ser llamados directamente desde aplicaciones o herramientas de gestión
 - Proporcionan una capa de abstracción para operaciones complejas de base de datos
 
-¿Necesitas alguna aclaración adicional sobre estos procedimientos almacenados?
 
 
