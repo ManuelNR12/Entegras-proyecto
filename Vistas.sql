@@ -4,21 +4,23 @@ use floristeria;
 -- vistas de producto con stock critico
 
 
+CREATE VIEW Vista_Stock_Productos AS
 SELECT 
-    ID_Producto,
-    Nombre,
-    Tipo,
-    Stock,
-    Precio,
+    p.ID_Producto,
+    p.Nombre,
+    p.Tipo,
+    p.Stock,
+    p.Precio,
     CASE 
-        WHEN Stock <= 20 THEN 'Crítico'
-        WHEN Stock BETWEEN 21 AND 50 THEN 'Bajo'
+        WHEN p.Stock <= 20 THEN 'Crítico'
+        WHEN p.Stock BETWEEN 21 AND 50 THEN 'Bajo'
         ELSE 'Normal'
     END AS Estado_Stock,
-    ROUND((Stock / (SELECT AVG(Stock) FROM Producto)) * 100, 2) AS Porcentaje_Promedio_Stock
-FROM Producto
-WHERE Stock <= 50
-ORDER BY Stock ASC;
+    ROUND((p.Stock / avg_stock.promedio_stock) * 100, 2) AS Porcentaje_Promedio_Stock
+FROM Producto p
+JOIN (SELECT AVG(Stock) AS promedio_stock FROM Producto) avg_stock
+WHERE p.Stock <= 50
+ORDER BY p.Stock ASC;
 
 
 -- vistas de ingresos mensuales 
