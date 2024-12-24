@@ -130,22 +130,14 @@ CREATE TABLE Productos_Temporales (
     Estacion ENUM('Primavera', 'Verano', 'Otoño', 'Invierno') NOT NULL  -- Estación en la que está disponible el producto
 );
 
-CREATE TABLE Transacción (
-    ID_Transacción INT PRIMARY KEY AUTO_INCREMENT,
-    ID_Venta INT,
-    Monto DECIMAL(10, 2) NOT NULL,
-    Fecha DATE NOT NULL,
-    Tipo_Pago VARCHAR(50),  -- O usar ENUM si hay valores fijos
-    Estado VARCHAR(50),  -- O usar ENUM si hay valores fijos
-    FOREIGN KEY (ID_Venta) REFERENCES Venta(ID_Venta)
+CREATE TABLE Registro_Generico (
+    ID_Registro INT PRIMARY KEY AUTO_INCREMENT,
+    Tipo_Registro VARCHAR(100),  -- Ejemplo: Evento, Actividad, Noticia, etc.
+    Descripcion TEXT,            -- Descripción detallada del registro
+    Fecha DATE NOT NULL,         -- Fecha del registro
+    Usuario_Registro VARCHAR(100),  -- Usuario que registró la información (ej. Administrador, Empleado, etc.)
+    Estado VARCHAR(50)           -- Estado del registro (ej. Activo, Inactivo, Concluido)
 );
-
-CREATE TABLE Venta (
-    ID_Venta INT PRIMARY KEY AUTO_INCREMENT,
-    Fecha_Venta DATE NOT NULL,
-    Total DECIMAL(10, 2) NOT NULL
-);
-    
     
 
 
