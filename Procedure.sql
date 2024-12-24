@@ -16,7 +16,7 @@ DELIMITER ;
 
 
 
---ingreso por producto
+-- ingreso por producto
 
 use floristeria;
 
@@ -39,7 +39,7 @@ END $$
 DELIMITER ;
 
 
---muestra la fecha de productos por orden de fecha
+-- muestra la fecha de productos por orden de fecha
 use floristeria;
 
 DELIMITER $$
