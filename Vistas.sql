@@ -43,4 +43,49 @@ FROM Entrega e
 JOIN Logística l ON e.ID_Logística = l.ID_Logística
 JOIN Pedido p ON e.ID_Pedido = p.ID_Pedido
 GROUP BY l.Método
-ORDER BY Ingresos_Generados DESC;
+
+
+-- vistas productos mas vendidos:
+
+CREATE VIEW Vista_Productos_Mas_Vendidos AS
+SELECT 
+    p.ID_Producto,
+    p.Nombre,
+    p.Tipo,
+    SUM(dp.Cantidad) AS Total_Vendido,
+    ROUND(SUM(dp.Cantidad * dp.Precio_Unitario), 2) AS Ingresos_Generados
+FROM Detalle_Pedido dp
+JOIN Producto p ON dp.ID_Producto = p.ID_Producto
+GROUP BY p.ID_Producto
+
+-- vista pedido por cliente
+
+CREATE VIEW Vista_Pedidos_Por_Cliente AS
+SELECT 
+    c.ID_Cliente,
+    c.Nombre,
+    COUNT(p.ID_Pedido) AS Número_Pedidos,
+    ROUND(SUM(p.Total), 2) AS Total_Gastado
+FROM Pedido p
+JOIN Cliente c ON p.ID_Cliente = c.ID_Cliente
+GROUP BY c.ID_Cliente
+ORDER BY Total_Gastado DESC;
+
+-- vista pedidos y compras por fecha
+
+CREATE VIEW Vista_Pedidos_Y_Compras_Por_Fecha AS
+SELECT 
+    DATE_FORMAT(p.Fecha, '%Y-%m-%d') AS Fecha,
+    COUNT(p.ID_Pedido) AS Número_Pedidos,
+    ROUND(SUM(p.Total), 2) AS Ingresos_Pedidos,
+    COUNT(c.ID_Compra) AS Número_Compras,
+    ROUND(SUM(c.Total), 2) AS Ingresos_Compras
+FROM Pedido p
+LEFT JOIN Compra c ON DATE_FORMAT(p.Fecha, '%Y-%m-%d') = DATE_FORMAT(c.Fecha, '%Y-%m-%d')
+GROUP BY Fecha
+ORDER BY Fecha;
+
+
+
+
+
