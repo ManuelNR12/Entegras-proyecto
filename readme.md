@@ -21,101 +21,118 @@ El manejo manual de estos procesos, a través de hojas de cálculo o registros e
 El modelo de negocio de nuestra floristería se basa en la venta de flores y plantas frescas, así como en la oferta de servicios de diseño floral para eventos, celebraciones y decoración de espacios. A través de este modelo, buscamos atender tanto a clientes particulares como a empresas, ofreciendo productos personalizados y servicios adaptados a las necesidades de cada ocasión. Nuestra floristería no solo se enfoca en la venta de productos, sino también en crear experiencias únicas a través de arreglos florales y decoraciones especiales para bodas, aniversarios, cumpleaños y otros eventos.
 
 
-
-
-
 # Base de Datos: Floristería
 
 La base de datos de **Floristería** tiene como objetivo gestionar información de clientes, proveedores, productos, pedidos, compras y entregas, proporcionando un sistema para el control de inventario, pedidos y logística de la floristería.
 
-## Tablas y Relaciones
+# Descripción de Tablas de la Base de Datos
 
-### Tabla: Cliente
-- **Descripción**: Contiene información sobre los clientes de la floristería.
-- **Campos**:
-  - `ID_Cliente`: Identificador único del cliente (clave primaria).
-  - `Nombre`: Nombre completo del cliente.
-  - `Teléfono`: Número de teléfono del cliente.
-  - `Correo`: Correo electrónico del cliente.
-- **Propósito**: Permite almacenar y acceder a información de los clientes para gestionar sus pedidos y comunicaciones.
+## 1. **Cliente**
+- **ID_Cliente**: Identificador único del cliente. Tipo de dato: `INT`. Clave primaria.
+- **Nombre**: Nombre del cliente. Tipo de dato: `VARCHAR(100)`. No nulo.
+- **Teléfono**: Número de teléfono del cliente. Tipo de dato: `VARCHAR(15)`.
+- **Correo**: Correo electrónico del cliente. Tipo de dato: `VARCHAR(100)`.
 
-### Tabla: Proveedor
-- **Descripción**: Contiene datos de los proveedores de productos.
-- **Campos**:
-  - `ID_Proveedor`: Identificador único del proveedor (clave primaria).
-  - `Nombre`: Nombre del proveedor.
-  - `Teléfono`: Número de teléfono del proveedor.
-  - `Correo`: Correo electrónico del proveedor.
-- **Propósito**: Facilita la gestión de relaciones con proveedores para la adquisición de productos necesarios para la floristería.
+## 2. **Proveedor**
+- **ID_Proveedor**: Identificador único del proveedor. Tipo de dato: `INT`. Clave primaria.
+- **Nombre**: Nombre del proveedor. Tipo de dato: `VARCHAR(100)`. No nulo.
+- **Teléfono**: Número de teléfono del proveedor. Tipo de dato: `VARCHAR(15)`.
+- **Correo**: Correo electrónico del proveedor. Tipo de dato: `VARCHAR(100)`.
 
-### Tabla: Producto
-- **Descripción**: Almacena información sobre los productos disponibles para la venta.
-- **Campos**:
-  - `ID_Producto`: Identificador único del producto (clave primaria).
-  - `Nombre`: Nombre del producto.
-  - `Descripción`: Descripción del producto.
-  - `Precio`: Precio del producto.
-  - `Stock`: Cantidad disponible en inventario.
-  - `Tipo`: Tipo o categoría del producto.
-- **Propósito**: Permite el control de inventario y precios de los productos que ofrece la floristería.
+## 3. **Producto**
+- **ID_Producto**: Identificador único del producto. Tipo de dato: `INT`. Clave primaria.
+- **Nombre**: Nombre del producto. Tipo de dato: `VARCHAR(100)`. No nulo.
+- **Descripción**: Descripción del producto. Tipo de dato: `TEXT`.
+- **Precio**: Precio del producto. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **Stock**: Cantidad disponible del producto en inventario. Tipo de dato: `INT`. No nulo.
+- **Tipo**: Tipo de producto (flor, planta, etc.). Tipo de dato: `VARCHAR(50)`.
 
-### Tabla: Pedido
-- **Descripción**: Contiene información sobre los pedidos realizados por los clientes.
-- **Campos**:
-  - `ID_Pedido`: Identificador único del pedido (clave primaria).
-  - `Fecha`: Fecha en la que se realizó el pedido.
-  - `Total`: Total del pedido.
-  - `ID_Cliente`: Clave foránea que hace referencia a Cliente (`ID_Cliente`).
-- **Propósito**: Almacena pedidos de clientes, facilitando el seguimiento de ventas y la creación de reportes de pedidos.
+## 4. **Pedido**
+- **ID_Pedido**: Identificador único del pedido. Tipo de dato: `INT`. Clave primaria.
+- **Fecha**: Fecha de realización del pedido. Tipo de dato: `DATE`. No nulo.
+- **Total**: Total del pedido. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **ID_Cliente**: Identificador del cliente que realizó el pedido. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Cliente`.
 
-### Tabla: Compra
-- **Descripción**: Almacena las compras realizadas a proveedores para abastecer inventario.
-- **Campos**:
-  - `ID_Compra`: Identificador único de la compra (clave primaria).
-  - `Fecha`: Fecha de la compra.
-  - `Total`: Total de la compra.
-  - `ID_Proveedor`: Clave foránea que hace referencia a Proveedor (`ID_Proveedor`).
-- **Propósito**: Permite el seguimiento de compras a proveedores y el control del gasto en adquisiciones.
+## 5. **Compra**
+- **ID_Compra**: Identificador único de la compra. Tipo de dato: `INT`. Clave primaria.
+- **Fecha**: Fecha de realización de la compra. Tipo de dato: `DATE`. No nulo.
+- **Total**: Total de la compra. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **ID_Proveedor**: Identificador del proveedor de la compra. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Proveedor`.
 
-### Tabla: Detalle_Pedido
-- **Descripción**: Detalla los productos incluidos en cada pedido realizado por los clientes.
-- **Campos**:
-  - `ID_Detalle`: Identificador único del detalle (clave primaria).
-  - `ID_Pedido`: Clave foránea que hace referencia a Pedido (`ID_Pedido`).
-  - `ID_Producto`: Clave foránea que hace referencia a Producto (`ID_Producto`).
-  - `Cantidad`: Cantidad del producto en el pedido.
-  - `Precio_Unitario`: Precio unitario del producto en el pedido.
-- **Propósito**: Almacena el desglose de cada pedido, esencial para el control de productos y la facturación.
+## 6. **Detalle_Pedido**
+- **ID_Detalle**: Identificador único del detalle del pedido. Tipo de dato: `INT`. Clave primaria.
+- **ID_Pedido**: Identificador del pedido al que pertenece este detalle. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Pedido`.
+- **ID_Producto**: Identificador del producto en este detalle. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Producto`.
+- **Cantidad**: Cantidad del producto en el detalle del pedido. Tipo de dato: `INT`. No nulo.
+- **Precio_Unitario**: Precio unitario del producto en el momento del pedido. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
 
-### Tabla: Detalle_Compra
-- **Descripción**: Detalla los productos incluidos en cada compra realizada a los proveedores.
-- **Campos**:
-  - `ID_Detalle_Compra`: Identificador único del detalle de compra (clave primaria).
-  - `ID_Compra`: Clave foránea que hace referencia a Compra (`ID_Compra`).
-  - `ID_Producto`: Clave foránea que hace referencia a Producto (`ID_Producto`).
-  - `Cantidad`: Cantidad del producto comprado.
-  - `Precio_Unitario`: Precio unitario del producto en la compra.
-- **Propósito**: Permite registrar los productos adquiridos en cada compra, ayudando en la gestión del inventario y costos.
+## 7. **Detalle_Compra**
+- **ID_Detalle_Compra**: Identificador único del detalle de la compra. Tipo de dato: `INT`. Clave primaria.
+- **ID_Compra**: Identificador de la compra a la que pertenece este detalle. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Compra`.
+- **ID_Producto**: Identificador del producto en este detalle de compra. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Producto`.
+- **Cantidad**: Cantidad del producto en el detalle de la compra. Tipo de dato: `INT`. No nulo.
+- **Precio_Unitario**: Precio unitario del producto en el momento de la compra. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
 
-### Tabla: Logística
-- **Descripción**: Almacena información sobre los métodos logísticos disponibles para los proveedores.
-- **Campos**:
-  - `ID_Logística`: Identificador único del método logístico (clave primaria).
-  - `ID_Proveedor`: Clave foránea que hace referencia a Proveedor (`ID_Proveedor`).
-  - `Método`: Método de envío.
-  - `Costo`: Costo del envío.
-  - `Tiempo_Estimado`: Tiempo estimado de entrega en días.
-- **Propósito**: Facilita la gestión y elección de métodos logísticos para los envíos desde los proveedores.
+## 8. **Logística**
+- **ID_Logística**: Identificador único de la logística. Tipo de dato: `INT`. Clave primaria.
+- **ID_Proveedor**: Identificador del proveedor encargado de la logística. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Proveedor`.
+- **Método**: Método de transporte o entrega utilizado. Tipo de dato: `VARCHAR(100)`.
+- **Costo**: Costo del servicio logístico. Tipo de dato: `DECIMAL(10, 2)`.
+- **Tiempo_Estimado**: Tiempo estimado de entrega (en días). Tipo de dato: `INT`.
 
-### Tabla: Entrega
-- **Descripción**: Almacena información sobre la entrega de pedidos.
-- **Campos**:
-  - `ID_Entrega`: Identificador único de la entrega (clave primaria).
-  - `ID_Logística`: Clave foránea que hace referencia a Logística (`ID_Logística`).
-  - `ID_Pedido`: Clave foránea que hace referencia a Pedido (`ID_Pedido`).
-  - `Fecha_Entrega`: Fecha en la que se entregó el pedido.
-  - `Estado`: Estado actual de la entrega.
-- **Propósito**: Permite el seguimiento de la entrega de pedidos y facilita la administración de estados de entrega y tiempos de cumplimiento.
+## 9. **Entrega**
+- **ID_Entrega**: Identificador único de la entrega. Tipo de dato: `INT`. Clave primaria.
+- **ID_Logística**: Identificador de la logística utilizada para la entrega. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Logística`.
+- **ID_Pedido**: Identificador del pedido que se está entregando. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Pedido`.
+- **Fecha_Entrega**: Fecha en que se realiza la entrega. Tipo de dato: `DATE`.
+- **Estado**: Estado de la entrega (por ejemplo, pendiente, completada). Tipo de dato: `VARCHAR(50)`.
+
+## 10. **Evento**
+- **ID_Evento**: Identificador único del evento. Tipo de dato: `INT`. Clave primaria.
+- **Nombre**: Nombre del evento. Tipo de dato: `VARCHAR(100)`. No nulo.
+- **Descripción**: Descripción del evento. Tipo de dato: `TEXT`.
+- **Fecha_Inicio**: Fecha de inicio del evento. Tipo de dato: `DATE`.
+- **Fecha_Fin**: Fecha de finalización del evento. Tipo de dato: `DATE`.
+- **Lugar**: Lugar donde se llevará a cabo el evento. Tipo de dato: `VARCHAR(100)`.
+
+## 11. **Inventario**
+- **ID_Inventario**: Identificador único del registro de inventario. Tipo de dato: `INT`. Clave primaria.
+- **ID_Producto**: Identificador del producto al que se refiere el registro de inventario. Tipo de dato: `INT`. Clave foránea que hace referencia a la tabla `Producto`.
+- **Stock_Anterior**: Cantidad de producto antes de la actualización. Tipo de dato: `INT`. No nulo.
+- **Stock_Actual**: Cantidad de producto después de la actualización. Tipo de dato: `INT`. No nulo.
+- **Fecha**: Fecha del registro de inventario. Tipo de dato: `DATE`.
+
+## 12. **Descuento**
+- **ID_Descuento**: Identificador único del descuento. Tipo de dato: `INT`. Clave primaria.
+- **Descripción**: Descripción del descuento. Tipo de dato: `TEXT`.
+- **Monto**: Monto o porcentaje del descuento. Tipo de dato: `DECIMAL(10, 2)`.
+- **Fecha_Inicio**: Fecha de inicio del descuento. Tipo de dato: `DATE`.
+- **Fecha_Fin**: Fecha de finalización del descuento. Tipo de dato: `DATE`.
+
+## 13. **Reporte_Financiero**
+- **ID_Reporte**: Identificador único del reporte. Tipo de dato: `INT`. Clave primaria.
+- **Fecha**: Fecha del reporte financiero. Tipo de dato: `DATE`. No nulo.
+- **Ingresos**: Total de ingresos reportados en ese periodo. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **Gastos**: Total de gastos reportados en ese periodo. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **Beneficio**: Beneficio neto, calculado como ingresos menos gastos. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+
+## 14. **Productos_Temporales**
+- **ID_Producto**: Identificador único del producto temporal. Tipo de dato: `INT`. Clave primaria.
+- **Nombre**: Nombre del producto temporal. Tipo de dato: `VARCHAR(100)`. No nulo.
+- **Descripción**: Descripción del producto. Tipo de dato: `TEXT`.
+- **Precio**: Precio del producto temporal. Tipo de dato: `DECIMAL(10, 2)`. No nulo.
+- **Cantidad**: Cantidad disponible en inventario. Tipo de dato: `INT`. No nulo.
+- **Tipo**: Tipo de producto (flor, planta, arreglo). Tipo de dato: `VARCHAR(50)`.
+- **Estación**: Estación en la que está disponible el producto temporal (Primavera, Verano, Otoño, Invierno). Tipo de dato: `ENUM('Primavera', 'Verano', 'Otoño', 'Invierno')`.
+
+## 15. **Registro_Generico**
+- **ID_Registro**: Identificador único del registro. Tipo de dato: `INT`. Clave primaria.
+- **Tipo_Registro**: Tipo de registro (Ejemplo: Evento, Actividad, Noticia, etc.). Tipo de dato: `VARCHAR(100)`.
+- **Descripción**: Descripción detallada del registro. Tipo de dato: `TEXT`.
+- **Fecha**: Fecha del registro. Tipo de dato: `DATE`. No nulo.
+- **Usuario_Registro**: Usuario que registró la información (Ej. Administrador, Empleado, etc.). Tipo de dato: `VARCHAR(100)`.
+- **Estado**: Estado del registro (Ej. Activo, Inactivo, Concluido). Tipo de dato: `VARCHAR(50)`.
+
 
 
 ## Problemas Resueltos
@@ -372,6 +389,163 @@ Pueden ser utilizadas en consultas SELECT, WHERE y en otras funciones o procedim
 **Consideraciones importantes**:
 - Pueden ser llamados directamente desde aplicaciones o herramientas de gestión
 - Proporcionan una capa de abstracción para operaciones complejas de base de datos
+
+## informe analisis 
+
+# Informe de Análisis Estratégico para la Floristería
+
+Este informe ha sido generado utilizando las vistas, funciones y procedimientos definidos en la base de datos de la floristería, y tiene como objetivo proporcionar una visión clara y detallada de los aspectos clave del negocio, como el inventario, las ventas, los ingresos y el rendimiento logístico. El análisis está estructurado para facilitar la toma de decisiones informadas y mejorar la gestión operativa.
+
+---
+
+## 1. Vista de Producto con Stock Crítico
+
+### Objetivo:
+Identificar y monitorear productos con niveles de inventario bajos o críticos para gestionar eficientemente el stock.
+
+### Descripción:
+Esta vista clasifica los productos según su nivel de stock, dividiéndolos en tres categorías:
+- **Crítico**: 20 unidades o menos.
+- **Bajo**: Entre 21 y 50 unidades.
+- **Normal**: Más de 50 unidades.
+
+### Características Principales:
+- Muestra detalles como ID, nombre, tipo, stock y precio de cada producto.
+- Calcula un porcentaje de stock en relación con el promedio general de todos los productos.
+- Ordena los resultados por nivel de stock de menor a mayor.
+
+### Beneficios:
+- Facilita la gestión de inventarios al alertar sobre productos con bajo stock.
+- Permite la planificación de compras y reposiciones a tiempo.
+
+---
+
+## 2. Vista de Ingresos Mensuales (VW_Ingresos_Mensuales)
+
+### Objetivo:
+Proporcionar un análisis detallado de los ingresos por mes para monitorear el rendimiento financiero a lo largo del tiempo.
+
+### Descripción:
+Agrupa los pedidos por mes y calcula métricas clave sobre las ventas.
+
+### Características Principales:
+- Agrupa los pedidos por año y mes.
+- Calcula:
+  - Número total de pedidos por mes.
+  - Ingresos totales.
+  - Valor promedio de pedido.
+  - Pedido mínimo y máximo.
+- Ordena los resultados cronológicamente.
+
+### Beneficios:
+- Ayuda a identificar patrones estacionales de ventas.
+- Permite la comparación de ingresos mes a mes y la evaluación del rendimiento financiero de la floristería.
+
+---
+
+## 3. Vista de Ingresos por Logística
+
+### Objetivo:
+Analizar los ingresos generados por diferentes métodos de logística para evaluar la efectividad de las opciones de entrega.
+
+### Descripción:
+Relaciona los pedidos con sus métodos de entrega y calcula los ingresos generados por cada uno de ellos.
+
+### Características Principales:
+- Agrupa los ingresos por método de logística.
+- Suma el total de ingresos para cada método de entrega.
+- Ordena los resultados de mayor a menor ingreso.
+
+### Beneficios:
+- Permite evaluar la rentabilidad de los diferentes métodos logísticos.
+- Facilita la toma de decisiones sobre la optimización de métodos de entrega y costos asociados.
+
+---
+
+## 4. Funciones Utilizadas en el Análisis
+
+### Función GetEstadoStockProducto(p_ID_Producto INT)
+
+- **Objetivo**: Determina el estado del stock de un producto específico.
+- **Lógica**:
+  - Stock ≤ 20: 'Crítico'
+  - Stock entre 21 y 50: 'Bajo'
+  - Stock > 50: 'Normal'
+- **Uso práctico**: Permite rápidamente identificar el estado de inventario de cualquier producto, útil para alertas de reabastecimiento.
+
+### Función GetPromedioProductosPorPedido(p_FechaInicio DATE, p_FechaFin DATE)
+
+- **Objetivo**: Calcular el promedio de productos por pedido en un período específico.
+- **Uso práctico**: Análisis del volumen de ventas y evaluación de la composición típica de los pedidos.
+
+### Función GetIngresosCliente(p_ID_Cliente INT, p_FechaInicio DATE, p_FechaFin DATE)
+
+- **Objetivo**: Calcular los ingresos totales generados por un cliente específico.
+- **Uso práctico**: Evaluación del valor de cliente y seguimiento de compras por cliente.
+
+---
+
+## 5. Procedimientos Utilizados en el Análisis
+
+### Procedimiento ActualizarStockProducto
+
+- **Objetivo**: Actualizar automáticamente el stock de un producto después de una venta.
+- **Funcionalidad**: Resta la cantidad vendida del stock actual.
+- **Beneficios**: Mantiene el inventario actualizado en tiempo real y evita la actualización manual del stock.
+
+### Procedimiento ObtenerIngresosPorProducto
+
+- **Objetivo**: Generar un informe de ingresos totales por producto en un rango de fechas específico.
+- **Beneficios**: Ayuda a identificar los productos más rentables y evaluar el rendimiento de productos específicos.
+
+### Procedimiento ObtenerOrdenVentasPorRangoFechas
+
+- **Objetivo**: Proporcionar un detalle cronológico de ventas en un período específico.
+- **Beneficios**: Facilita el seguimiento de ventas y el análisis de patrones de compra.
+
+---
+
+## 6. Beneficios Generales de las Vistas, Funciones y Procedimientos
+
+- **Optimización de Inventarios**: Las vistas de stock crítico y las funciones asociadas ayudan a gestionar y mantener el inventario en niveles óptimos, evitando desabastecimientos o excesos de stock.
+  
+- **Monitoreo Financiero**: Las vistas de ingresos mensuales y por logística ofrecen un análisis detallado de las métricas financieras clave, permitiendo evaluar el rendimiento económico del negocio a lo largo del tiempo y por distintos métodos de entrega.
+
+- **Eficiencia Operativa**: Los procedimientos automatizan la actualización de stock y la generación de informes, lo que mejora la eficiencia operativa y reduce el margen de error humano.
+
+- **Toma de Decisiones Estratégicas**: Las funciones y vistas proporcionan información clave para la toma de decisiones informadas sobre compras, ventas y estrategias logísticas.
+
+---
+
+## 7. Recomendaciones de Uso
+
+- **Informes Periódicos**: Utilizar las vistas y procedimientos en informes periódicos (semanales, mensuales, trimestrales) para hacer un seguimiento constante del inventario, las ventas y los ingresos.
+  
+- **Análisis de Rendimiento de Productos**: Aprovechar la función `ObtenerIngresosPorProducto` para analizar el rendimiento de productos específicos, y ajustar la oferta según la demanda y rentabilidad.
+
+- **Planificación de Compras y Reabastecimiento**: Usar la vista de **Producto con Stock Crítico** para identificar qué productos requieren reposición urgente y evitar desabastecimientos.
+
+
+# Herramientas utilizadas
+
+El uso combinado de **MySQL Workbench**, **GitHub** y **Visual Studio Code** permitió un flujo de trabajo eficiente y organizado para la creación y gestión de la base de datos de la floristería.
+
+- **MySQL Workbench** facilitó la creación y administración de la base de datos, así como la ejecución de consultas y pruebas
+- **GitHub** A traves de Github permitio el almacenamiento y la gestion del proyecto de manera eficiente.
+- **Visual Studio Code** A traves de visual studio se pudo realizar la ejecucion del codigo y el enlazamiento con github
+
+## Resumen:
+
+
+La floristería se dedica a la venta de flores y plantas frescas, además de ofrecer servicios personalizados para eventos y celebraciones. Para mejorar la eficiencia operativa, se ha decidido implementar una base de datos integral que facilitará la gestión de clientes, proveedores, productos, pedidos, compras y entregas. Esta herramienta permitirá optimizar el control de inventarios, agilizar los pedidos y mejorar la logística, lo que se traducirá en un servicio más rápido y de mayor calidad.
+
+Actualmente, la floristería enfrenta problemas como errores en el inventario, demoras en las entregas y dificultades para coordinarse con los proveedores, debido a la falta de un sistema centralizado. Estos inconvenientes afectan la organización y la calidad del servicio, impidiendo una atención rápida y personalizada. La implementación de la base de datos solucionará estos problemas al automatizar los procesos, mejorar la comunicación con los proveedores y mantener un control preciso de los productos en stock. Esto permitirá una atención más eficiente, minimizando errores y reduciendo tiempos de espera.
+
+Con la base de datos, la floristería podrá gestionar de manera más ágil los pedidos, optimizar las compras, mejorar las relaciones con los proveedores y ofrecer un servicio más rápido y personalizado. Esto contribuirá a mejorar la experiencia del cliente, optimizar la logística y asegurar el crecimiento y la sostenibilidad del negocio a largo plazo.
+
+
+
+
 
 
 
