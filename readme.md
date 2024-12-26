@@ -1,3 +1,29 @@
+# Introduccion:
+
+En nuestra floristería, nos dedicamos a la venta y distribución de flores y plantas frescas, ofreciendo productos de alta calidad y servicios personalizados para eventos especiales, celebraciones y decoración. Nuestro objetivo es brindar una experiencia única a cada cliente, con diseños florales creativos y un servicio excepcional.
+
+Para mejorar nuestra eficiencia y poder ofrecer un mejor servicio, hemos decidido crear una base de datos integral que nos permita gestionar toda la información relacionada con nuestros clientes, proveedores, productos, pedidos, compras y entregas. Este sistema nos ayudará a llevar un control más preciso de nuestro inventario, gestionar de manera más ágil los pedidos y optimizar la logística de entregas. Con esta base de datos, buscamos simplificar nuestras operaciones, mejorar la organización y, en última instancia, ofrecer un servicio más rápido y de mayor calidad a nuestros clientes.
+
+# Objetivo:
+
+El objetivo principal de implementar una base de datos en nuestra floristería es optimizar la gestión integral de la información, permitiendo un control preciso y eficiente sobre los diferentes aspectos del negocio, como los clientes, proveedores, productos, pedidos, compras y entregas. Con este sistema, buscamos automatizar y agilizar los procesos relacionados con el inventario, los pedidos y la logística de entregas, lo que nos permitirá mantener un seguimiento constante y actualizado de nuestras operaciones. A través de esta herramienta, nos proponemos mejorar la organización interna, minimizar errores humanos, y reducir los tiempos de espera tanto para el cliente como para el personal encargado de las tareas operativas.
+
+Además, la base de datos nos ayudará a tener un mejor manejo de las relaciones con los proveedores, optimizando las compras y garantizando que siempre tengamos los productos adecuados en stock. También se mejorará la experiencia del cliente, ya que podremos ofrecer un servicio más rápido y personalizado, asegurando que sus pedidos sean atendidos con precisión y en tiempo oportuno. En resumen, nuestro objetivo es aumentar la eficiencia operativa, mejorar la calidad del servicio, fortalecer la relación con nuestros clientes y proveedores, y optimizar la logística de nuestra floristería, todo ello con el fin de asegurar el crecimiento y la sostenibilidad del negocio a largo plazo.
+
+# Situacion Problema:
+
+Actualmente, nuestra floristería enfrenta dificultades para gestionar de manera eficiente la información relacionada con los clientes, proveedores, productos, pedidos, compras y entregas. La falta de un sistema centralizado y automatizado para el control de inventarios y la gestión de pedidos ha generado diversos inconvenientes, como errores en la actualización del stock, demoras en las entregas y dificultades para mantener un seguimiento adecuado de los pedidos y solicitudes de los clientes. Además, la falta de una herramienta que facilite la comunicación y coordinación con los proveedores ha provocado desabastecimientos de productos clave en momentos de alta demanda.
+
+El manejo manual de estos procesos, a través de hojas de cálculo o registros en papel, también ha ocasionado problemas de organización, pérdida de datos importantes y una mayor carga de trabajo para el personal, lo que impacta negativamente en la calidad del servicio que ofrecemos. Esta situación limita nuestra capacidad para ofrecer una atención más rápida y personalizada, y dificulta la toma de decisiones estratégicas sobre inventario, compras y logística. En resumen, la falta de un sistema eficiente y centralizado está afectando nuestra operativa diaria y nuestra capacidad para satisfacer las necesidades de los clientes de manera óptima.
+
+# Modelo de negocio:
+
+El modelo de negocio de nuestra floristería se basa en la venta de flores y plantas frescas, así como en la oferta de servicios de diseño floral para eventos, celebraciones y decoración de espacios. A través de este modelo, buscamos atender tanto a clientes particulares como a empresas, ofreciendo productos personalizados y servicios adaptados a las necesidades de cada ocasión. Nuestra floristería no solo se enfoca en la venta de productos, sino también en crear experiencias únicas a través de arreglos florales y decoraciones especiales para bodas, aniversarios, cumpleaños y otros eventos.
+
+
+
+
+
 # Base de Datos: Floristería
 
 La base de datos de **Floristería** tiene como objetivo gestionar información de clientes, proveedores, productos, pedidos, compras y entregas, proporcionando un sistema para el control de inventario, pedidos y logística de la floristería.
